@@ -5,7 +5,7 @@ export default class BootScene extends Phaser.Scene {
 
   preload() {
     // 加载统一资源索引
-    this.load.json('assetsManifest', 'assets/oakwoods/assets.json');
+    this.load.json('assetsManifest', 'public/assets/oakwoods/assets.json');
   }
 
   create() {

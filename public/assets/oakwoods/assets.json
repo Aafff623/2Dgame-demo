@@ -5,7 +5,7 @@
     "source": "oak_woods_v1.0",
     "description": "统一资源索引 - Phaser 3 地图/精灵/动画"
   },
-  "basePath": "assets/oakwoods/oak_woods_v1.0",
+  "basePath": "public/assets/oakwoods/oak_woods_v1.0",
 
   "images": [
     {

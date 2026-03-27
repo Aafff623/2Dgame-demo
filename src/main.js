@@ -21,4 +21,5 @@ const config = {
   scene: [BootScene, GameScene]
 };
 
-new Phaser.Game(config);
+// 暴露游戏实例到全局，供测试使用
+window.game = new Phaser.Game(config);

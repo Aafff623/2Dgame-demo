@@ -32,45 +32,41 @@ export default class GameScene extends Phaser.Scene {
 
     // ============ Phase 2: 地面瓦片层 ============
 
-    // 地面高度：2层瓦片 = 48px
-    const groundHeight = tileSize * 2;
-    const groundY = worldHeight - groundHeight; // y = 552
+    // 地面高度：1层瓦片 = 24px
+    const groundHeight = tileSize;
+    const groundY = worldHeight - groundHeight; // y = 576
 
-    // 创建地面组（静态物体）
-    this.groundTiles = this.physics.add.staticGroup();
-
-    // 横向铺满整个世界宽度
-    const tilesAcross = Math.ceil(worldWidth / tileSize); // 67 tiles
-
-    for (let x = 0; x < tilesAcross; x++) {
-      for (let row = 0; row < 2; row++) {
-        const frameIndex = row * 21;
-        const tile = this.add.image(
-          x * tileSize + tileSize / 2,
-          groundY + row * tileSize + tileSize / 2,
-          'oak_woods_tiles',
-          frameIndex
-        );
-        tile.setScrollFactor(0);
-        tile.setDepth(5);
-        this.groundTiles.add(tile);
-      }
+    // 只添加视觉瓦片，不创建碰撞
+    for (let x = 0; x < Math.ceil(worldWidth / tileSize); x++) {
+      const tile = this.add.image(
+        x * tileSize + tileSize / 2,
+        groundY + tileSize / 2,
+        'oak_woods_tiles',
+        0
+      );
+      tile.setScrollFactor(0);
+      tile.setDepth(5);
     }
 
-    this.groundTiles.refresh();
+    // 创建空的地板组（占位，后续用 TileMap 替代）
+    this.groundTiles = this.physics.add.staticGroup();
 
-    console.log(`[GameScene] Phase 2 完成：地面瓦片层已添加 (${tilesAcross}×2 tiles)`);
+    console.log('[GameScene] Phase 2 完成：地面瓦片已添加（无碰撞）');
 
     // ============ Phase 3: 角色与动画 ============
 
     // 创建角色精灵（物理体）
-    this.player = this.physics.add.sprite(200, groundY - 28, 'char_blue');
+    // 角色底部应该在地面顶部，所以 Y = groundY - 角色高度
+    this.player = this.physics.add.sprite(200, groundY - 48, 'char_blue');
     this.player.setDepth(10);
     this.player.setCollideWorldBounds(true);
 
-    // 玩家尺寸与地面碰撞
-    this.player.body.setSize(40, 48);
-    this.player.body.setOffset(8, 8);
+    // 暴露 player 到全局，供测试使用
+    window.player = this.player;
+
+    // 玩家碰撞箱 - 稍微小一点以避免卡住
+    this.player.body.setSize(36, 44);
+    this.player.body.setOffset(10, 12);
 
     // 设置物理世界边界
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight);
@@ -123,23 +119,22 @@ export default class GameScene extends Phaser.Scene {
     const speed = 160;
     const left = this.cursors.left.isDown || this.wasd.left.isDown;
     const right = this.cursors.right.isDown || this.wasd.right.isDown;
-    const facingLeft = this.player.flipX;
 
     if (left) {
       this.player.setVelocityX(-speed);
-      if (facingLeft) this.player.flipX = false;
-      if (this.player.body.onFloor() && !this.player.anims.isPlaying || this.player.anims.currentAnim?.key !== 'walk') {
+      this.player.flipX = true;
+      if (this.player.body.onFloor() && this.player.anims.currentAnim?.key !== 'walk') {
         this.player.play('walk', true);
       }
     } else if (right) {
       this.player.setVelocityX(speed);
-      if (!facingLeft) this.player.flipX = true;
-      if (this.player.body.onFloor() && !this.player.anims.isPlaying || this.player.anims.currentAnim?.key !== 'walk') {
+      this.player.flipX = false;
+      if (this.player.body.onFloor() && this.player.anims.currentAnim?.key !== 'walk') {
         this.player.play('walk', true);
       }
     } else {
       this.player.setVelocityX(0);
-      if (this.player.body.onFloor()) {
+      if (this.player.body.onFloor() && this.player.anims.currentAnim?.key !== 'idle') {
         this.player.play('idle', true);
       }
     }
