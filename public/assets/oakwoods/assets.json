@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "name": "Oak Woods Game Assets",
+    "version": "1.0",
+    "source": "oak_woods_v1.0",
+    "description": "统一资源索引 - Phaser 3 地图/精灵/动画"
+  },
+  "basePath": "assets/oakwoods/oak_woods_v1.0",
+
+  "images": [
+    {
+      "key": "bg_layer_1",
+      "path": "background/background_layer_1.png",
+      "type": "image",
+      "width": null,
+      "height": null,
+      "description": "背景层1 - 远景"
+    },
+    {
+      "key": "bg_layer_2",
+      "path": "background/background_layer_2.png",
+      "type": "image",
+      "description": "背景层2 - 中景"
+    },
+    {
+      "key": "bg_layer_3",
+      "path": "background/background_layer_3.png",
+      "type": "image",
+      "description": "背景层3 - 近景"
+    }
+  ],
+
+  "spritesheets": [
+    {
+      "key": "char_blue",
+      "path": "character/char_blue.png",
+      "type": "spritesheet",
+      "frameWidth": 56,
+      "frameHeight": 56,
+      "spacing": 0,
+      "margin": 0,
+      "cols": 8,
+      "rows": 7,
+      "animations": {
+        "idle": { "start": 0, "end": 5, "frameRate": 8, "repeat": -1 },
+        "attack": { "start": 8, "end": 13, "frameRate": 12, "repeat": 0 },
+        "walk": { "start": 16, "end": 23, "frameRate": 10, "repeat": -1 }
+      },
+      "description": "蓝色角色精灵表 - 56×56 帧"
+    }
+  ],
+
+  "tilesets": [
+    {
+      "key": "oak_woods_tiles",
+      "path": "oak_woods_tileset.png",
+      "type": "tileset",
+      "tileWidth": 24,
+      "tileHeight": 24,
+      "tileSpacing": 0,
+      "tileMargin": 0,
+      "cols": 21,
+      "rows": 15,
+      "description": "Oak Woods 瓦片集 - 24×24 瓦片尺寸"
+    }
+  ],
+
+  "decorations": [
+    {
+      "key": "fence_1",
+      "path": "decorations/fence_1.png",
+      "type": "image"
+    },
+    {
+      "key": "fence_2",
+      "path": "decorations/fence_2.png",
+      "type": "image"
+    },
+    {
+      "key": "grass_1",
+      "path": "decorations/grass_1.png",
+      "type": "image"
+    },
+    {
+      "key": "grass_2",
+      "path": "decorations/grass_2.png",
+      "type": "image"
+    },
+    {
+      "key": "grass_3",
+      "path": "decorations/grass_3.png",
+      "type": "image"
+    },
+    {
+      "key": "lamp",
+      "path": "decorations/lamp.png",
+      "type": "image"
+    },
+    {
+      "key": "rock_1",
+      "path": "decorations/rock_1.png",
+      "type": "image"
+    },
+    {
+      "key": "rock_2",
+      "path": "decorations/rock_2.png",
+      "type": "image"
+    },
+    {
+      "key": "rock_3",
+      "path": "decorations/rock_3.png",
+      "type": "image"
+    },
+    {
+      "key": "shop",
+      "path": "decorations/shop.png",
+      "type": "image"
+    },
+    {
+      "key": "shop_anim",
+      "path": "decorations/shop_anim.png",
+      "type": "spritesheet",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "description": "商店动画精灵"
+    },
+    {
+      "key": "sign",
+      "path": "decorations/sign.png",
+      "type": "image"
+    }
+  ],
+
+  "PhaserLoader": {
+    "usage": "在 Phaser BootScene 中使用",
+    "example": "this.load.json('assets', 'assets/oakwoods/assets.json')"
+  }
+}
